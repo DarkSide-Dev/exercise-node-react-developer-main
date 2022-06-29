@@ -15,15 +15,48 @@ export const TITLE = styled.h1`
   font-weight: 300;
 `;
 
-export const LIST = styled.div`
+export const COMMIT = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  width: 90%;
-  padding: 20px 0;
+  background-color: #4a3b3b;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 1000px;
+  max-width: 95%;
+  min-width: 320px;
+  box-sizing: border-box;
+  padding: 20px 70px;
   border-radius: 10px;
-  box-shadow: 1px 1px 10px #879196;
+  box-shadow: 1px 1px 10px #61dafb;
+  color: #e2e2e2;
 `;
+
+export const USER_LINK = styled.a`
+  text-decoration: none;
+`;
+
+export const USER_IMG = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  padding: 5px;
+  border: 2px solid #61dafb;
+`;
+
+export const COMMIT_AREA = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const USER_NAME = styled.a`
+  text-decoration: none;
+  color: #e2e2e2;
+`;
+
+export const COMMIT_DATE = styled.p``;
+
+export const COMMIT_TITLE = styled.p``;
 
 export const REPO_ITEM = styled.button`
   display: flex;

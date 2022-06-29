@@ -7,76 +7,86 @@ import { Repo } from '../models/Repo';
 import { Commit } from '../models/Commit';
 
 const generateJSON = (repos: Repo[]): void => {
-    try{
-        fs.writeFile(path.join(__dirname, '../../data/repos.json'), JSON.stringify(repos, null, 2), (err) => {
-            if (err) throw err;
-            console.log('The file has been saved!');
-        });
-    } catch(error){
-        console.log(error);
-    }
-}
+  try {
+    fs.writeFile(
+      path.join(__dirname, '../../data/repos.json'),
+      JSON.stringify(repos, null, 2),
+      (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const getJSON = (): JSON | boolean => {
-    try{
-        const response = fs.readFileSync(path.join(__dirname, '../../data/repos.json'));
-        return JSON.parse(response.toString());
-    } catch(error){
-        return false;
-    }
-}
+  try {
+    const response = fs.readFileSync(
+      path.join(__dirname, '../../data/repos.json')
+    );
+    return JSON.parse(response.toString());
+  } catch (error) {
+    return false;
+  }
+};
 
 export const repo = async (_: Request, res: Response) => {
+  try {
+    res.header('Cache-Control', 'no-store');
+    res.header('Content-Type', 'application/json');
 
-    try{
+    res.status(200);
 
-        res.header('Cache-Control', 'no-store');
-        res.header('Content-Type', 'application/json')
-    
-        res.status(200);
+    let url: string = process.env.API_BASE as string;
 
-        let url: string = process.env.API_BASE as string;
+    const data = await axios
+      .get<Repo[]>(url)
+      .then((repositories) => {
+        let filteredRepo: Repo[] = repositories.data.filter((item) => {
+          return !item.fork;
+        });
 
-        const data = await axios.get<Repo[]>(url).then((repositories) => {
-        
-            let filteredRepo: Repo[] = repositories.data.filter(item => {
-                return !item.fork;
-            });
-    
-            return filteredRepo;
-        }).catch(() => {throw 'Requisiton failed'});
+        return filteredRepo;
+      })
+      .catch(() => {
+        throw 'Requisiton failed';
+      });
 
-        generateJSON(data);
+    generateJSON(data);
 
-        res.send(JSON.stringify(data, null, 2));
-
-    } catch(error){
-        res.json(getJSON() || {status: 503, message: error});
-    }
-}
+    res.send(JSON.stringify(data, null, 2));
+  } catch (error) {
+    res.json(getJSON() || { status: 503, message: error });
+  }
+};
 
 export const commits = async (req: Request, res: Response) => {
+  try {
+    res.header('Cache-Control', 'no-store');
+    res.header('Content-Type', 'application/json');
 
-    try{
+    res.status(200);
 
-        res.header('Cache-Control', 'no-store');
-        res.header('Content-Type', 'application/json')
-    
-        res.status(200);
+    let url: string = process.env.COMMIT_BASE as string;
 
-        let url: string = process.env.COMMIT_BASE as string;
+    const data = await axios
+      .get<Commit[]>(`${url}/${req.params.repo}/commits?per_page=1`, {
+        headers: {
+          authorization: 'token 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', // This token will expire in 7 days
+        },
+      })
+      .then((repositories) => {
+        return repositories.data;
+      })
+      .catch(() => {
+        throw 'Commit requisiton failed';
+      });
 
-        const data = await axios.get<Commit[]>(`${url}/${req.params.repo}/commits?per_page=1`).then((repositories) => {
-        
-            return repositories.data;
-
-        }).catch(() => {throw 'Commit requisiton failed'});
-
-        res.send(JSON.stringify(data, null, 2));
-
-    } catch(error){
-        res.status(503);
-        res.json({status: 503, message: error});
-    }
-
-}
+    res.send(JSON.stringify(data, null, 2));
+  } catch (error) {
+    res.status(503);
+    res.json({ status: 503, message: error });
+  }
+};
