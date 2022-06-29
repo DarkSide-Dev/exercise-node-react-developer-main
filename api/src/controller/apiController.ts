@@ -27,6 +27,6 @@ export const repo = async (_: Request, res: Response) => {
 
     } catch(error){
         res.status(503);
-        res.json({msg: error});
+        res.json({status: 503, message: error});
     }
 }
