@@ -1,7 +1,20 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
 
 import { Repo } from '../models/Repo';
+
+const generateJSON = (repos: Repo[]): void => {
+    try{
+        fs.writeFile(path.join(__dirname, '../../data/repos.json'), JSON.stringify(repos, null, 2), (err) => {
+            if (err) throw err;
+            console.log('The file has been saved!');
+        });
+    } catch(error){
+        console.log(error);
+    }
+}
 
 export const repo = async (_: Request, res: Response) => {
 
@@ -22,6 +35,8 @@ export const repo = async (_: Request, res: Response) => {
     
             return filteredRepo;
         }).catch(() => {throw 'Requisiton failed'});
+
+        generateJSON(data);
 
         res.send(JSON.stringify(data, null, 2));
 
