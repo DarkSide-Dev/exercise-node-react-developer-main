@@ -11,6 +11,7 @@
     "prettier-write": "prettier --write 'src/**/*.{js,ts}'"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "cors": "^2.8.5",
     "debug": "^4.3.4",
     "dotenv-flow": "^3.2.0",
@@ -26,6 +27,7 @@
     "@types/node": "^14.18.12 || ^16.11.26",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
+    "@types/axios": "^0.14.0",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.25.4",
