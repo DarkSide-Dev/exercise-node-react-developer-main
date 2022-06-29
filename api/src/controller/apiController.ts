@@ -90,3 +90,27 @@ export const commits = async (req: Request, res: Response) => {
     res.json({ status: 503, message: error });
   }
 };
+
+export const readme = async (req: Request, res: Response) => {
+  try {
+    res.header('Cache-Control', 'no-store');
+    res.header('Content-Type', 'application/json');
+
+    res.status(200);
+
+    let url: string = process.env.README_BASE as string;
+
+    const data = await axios
+      .get<Commit[]>(`${url}/${req.params.repo}/master/README.md`)
+      .then((repositories) => {
+        return repositories.data;
+      })
+      .catch((error) => {
+        throw 'Commit requisiton failed';
+      });
+
+      res.send(data);
+  } catch (error) {
+    res.send('Readme not found');
+  }
+}
