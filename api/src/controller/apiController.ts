@@ -74,7 +74,7 @@ export const commits = async (req: Request, res: Response) => {
     const data = await axios
       .get<Commit[]>(`${url}/${req.params.repo}/commits?per_page=1`, {
         headers: {
-          authorization: 'token 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', // This token will expire in 7 days
+          authorization: 'token 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', // This token will expire in 7 days
         },
       })
       .then((repositories) => {
@@ -109,8 +109,8 @@ export const readme = async (req: Request, res: Response) => {
         throw 'Commit requisiton failed';
       });
 
-      res.send(data);
+      res.send({data: data});
   } catch (error) {
-    res.send('Readme not found');
+    res.send({message: 'Readme not found'});
   }
 }

@@ -47,6 +47,7 @@ export const COMMIT_AREA = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 export const USER_NAME = styled.a`
@@ -56,4 +57,38 @@ export const USER_NAME = styled.a`
 
 export const COMMIT_DATE = styled.p``;
 
-export const COMMIT_TITLE = styled.p``;
+export const COMMIT_TITLE = styled.p`
+  width: 500px;
+  text-align: center;
+`;
+
+export const README_AREA = styled.span`
+  white-space: pre-line;
+  margin-top: 40px;
+  background-color: #444;
+  width: 1000px;
+  max-width: 95%;
+  min-width: 320px;
+  box-sizing: border-box;
+  padding: 20px 70px;
+  border-radius: 10px;
+  color: #e2e2e2;
+`;
+
+export const BACK_BUTTON = styled.button`
+  width: 280px;
+  margin: 20px 0;
+  padding: 20px;
+  font-size: 25px;
+  background-color: #04aa6d;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  text-align: center;
+  transition: all ease 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #059862;
+  }
+`;
