@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Repo } from '../models/Repo';
+import { TailSpin } from 'react-loader-spinner';
 import {
   CONTAINER,
   TITLE,
@@ -59,6 +60,7 @@ export const HOME = () => {
               </REPO_ITEM>
             );
           })}
+        {!repo && <TailSpin color="#1d7d97" width="100" />}
       </LIST>
     </CONTAINER>
   );
