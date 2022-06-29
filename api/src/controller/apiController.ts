@@ -17,7 +17,7 @@ const generateJSON = (repos: Repo[]): void => {
     }
 }
 
-const getJSON = (): any => {
+const getJSON = (): JSON | boolean => {
     try{
         const response = fs.readFileSync(path.join(__dirname, '../../data/repos.json'));
         return JSON.parse(response.toString());
@@ -51,7 +51,7 @@ export const repo = async (_: Request, res: Response) => {
         res.send(JSON.stringify(data, null, 2));
 
     } catch(error){
-        res.json(getJSON());
+        res.json(getJSON() || {status: 503, message: error});
     }
 }
 
