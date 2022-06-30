@@ -74,7 +74,7 @@ export const commits = async (req: Request, res: Response) => {
     const data = await axios
       .get<Commit[]>(`${url}/${req.params.repo}/commits?per_page=1`, {
         headers: {
-          authorization: 'token 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', // This token will expire in 7 days
+          authorization: 'token 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', // This token will expire in 7 days
         },
       })
       .then((repositories) => {
