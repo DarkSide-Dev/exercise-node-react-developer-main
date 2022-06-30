@@ -72,11 +72,7 @@ export const commits = async (req: Request, res: Response) => {
     let url: string = process.env.COMMIT_BASE as string;
 
     const data = await axios
-      .get<Commit[]>(`${url}/${req.params.repo}/commits?per_page=1`, {
-        headers: {
-          authorization: 'token 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', // This token sometimes expire, maybe an error??
-        },
-      })
+      .get<Commit[]>(`${url}/${req.params.repo}/commits?per_page=1`) // Add github token for more requisition limits
       .then((repositories) => {
         return repositories.data;
       })
