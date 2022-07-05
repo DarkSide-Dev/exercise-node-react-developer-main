@@ -2,19 +2,7 @@ import { useEffect, useState } from 'react';
 import { TailSpin } from 'react-loader-spinner';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Commit } from '../models/Commit';
-import {
-  COMMIT,
-  COMMIT_DATE,
-  COMMIT_AREA,
-  COMMIT_TITLE,
-  CONTAINER,
-  TITLE,
-  USER_IMG,
-  USER_NAME,
-  USER_LINK,
-  README_AREA,
-  BACK_BUTTON,
-} from './styles/Details';
+import * as D from './styles/Details';
 
 export const DETAILS = () => {
   const params = useParams();
@@ -80,35 +68,37 @@ export const DETAILS = () => {
   }
 
   return (
-    <CONTAINER>
-      <TITLE>Repository: {params.repo}</TITLE>
-      <COMMIT>
+    <D.CONTAINER>
+      <D.TITLE>Repository: {params.repo}</D.TITLE>
+      <D.COMMIT>
         {details && date && (
           <>
-            <COMMIT_AREA>
-              <USER_LINK href={details.author.url}>
-                <USER_IMG src={details.author.avatar_url} />
-              </USER_LINK>
-              <USER_NAME href={details.author.url}>
+            <D.COMMIT_AREA>
+              <D.USER_LINK href={details.author.url}>
+                <D.USER_IMG src={details.author.avatar_url} />
+              </D.USER_LINK>
+              <D.USER_NAME href={details.author.url}>
                 {details.author.login}
-              </USER_NAME>
-            </COMMIT_AREA>
-            <COMMIT_AREA>
-              <COMMIT_DATE>
+              </D.USER_NAME>
+            </D.COMMIT_AREA>
+            <D.COMMIT_AREA>
+              <D.COMMIT_DATE>
                 Date: {date.getMonth() + 1}/{date.getDate()}/
                 {date.getFullYear()}
-              </COMMIT_DATE>
-              <COMMIT_TITLE>{details.commit.message}</COMMIT_TITLE>
-            </COMMIT_AREA>
+              </D.COMMIT_DATE>
+              <D.COMMIT_TITLE>{details.commit.message}</D.COMMIT_TITLE>
+            </D.COMMIT_AREA>
           </>
         )}
 
         {loading && <TailSpin color="#1d7d97" width="100" />}
 
         {errorLog}
-      </COMMIT>
-      <README_AREA>{readme}</README_AREA>
-      <BACK_BUTTON onClick={() => handleRepo()}>Back to List page</BACK_BUTTON>
-    </CONTAINER>
+      </D.COMMIT>
+      <D.README_AREA>{readme}</D.README_AREA>
+      <D.BACK_BUTTON onClick={() => handleRepo()}>
+        Back to List page
+      </D.BACK_BUTTON>
+    </D.CONTAINER>
   );
 };
