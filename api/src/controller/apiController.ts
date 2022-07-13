@@ -6,6 +6,7 @@ import path from 'path';
 import { Repo } from '../models/Repo';
 import { Commit } from '../models/Commit';
 
+// There was a misunderstanding on my part, I had understood that I should generate the json based on the taken repositories, but I read it more carefully recently and found that I got it wrong
 const generateJSON = (repos: Repo[]): void => {
   try {
     fs.writeFile(
